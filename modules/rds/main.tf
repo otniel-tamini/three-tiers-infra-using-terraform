@@ -2,6 +2,9 @@
 data "aws_secretsmanager_secret_version" "db_credentials_version" {
   # Pass the ARN from the secrets module output in main.tf
   secret_id = var.db_secret_arn
+  depends_on = [
+    aws_db_subnet_group.rds_subnet_group, # or any resource that ensures module.secrets is created first
+  ]
 }
 resource "aws_security_group" "rds_sg" {
   name        = "${var.project}-rds-sg"
@@ -28,8 +31,12 @@ resource "aws_security_group" "rds_sg" {
   }
 }
 
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 resource "aws_db_subnet_group" "rds_subnet_group" {
-  name       = "${var.project}-rds-subnet-group"
+  name       = "${substr(var.project, 0, 16)}-rds-subnet-${random_id.suffix.hex}"
   subnet_ids = var.private_subnet_ids
 
   tags = {

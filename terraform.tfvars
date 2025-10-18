@@ -2,8 +2,8 @@
 # 🔧 Global Configuration
 ##########################
 
-project     = "three-tier-app-otniel-16825"
-aws_region  = "us-east-1"
+project     = "three-tier-app-terraform"
+aws_region  = "eu-west-1"
 
 ##########################
 # 🌐 Réseau (VPC & Subnets)
@@ -17,7 +17,7 @@ private_subnet_cidrs = ["10.0.101.0/24", "10.0.102.0/24"]
 # 🖥️ Instances EC2 / ASG
 ##########################
 
-ami_id        = "ami-0360c520857e3138f" # à adapter selon ta région
+ami_id        = "ami-0b016d1e12e0375a8" # à adapter selon ta région
 instance_type = "t3.micro"
 
 ##########################

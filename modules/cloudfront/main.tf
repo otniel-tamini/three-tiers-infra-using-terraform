@@ -1,5 +1,9 @@
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 resource "aws_cloudfront_origin_access_control" "oac" {
-  name                              = "${var.project}-oac"
+  name                              = "${substr(var.project, 0, 16)}-oac-${random_id.suffix.hex}"
   origin_access_control_origin_type = var.origin_type == "s3" ? "s3" : "custom"
   signing_behavior                  = var.origin_type == "s3" ? "always" : "never"
   signing_protocol                  = "sigv4"

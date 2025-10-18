@@ -1,5 +1,7 @@
+
+
 resource "aws_secretsmanager_secret" "db_credentials" {
-  name        = "${var.project}-db-credentials-${random_id.suffix.hex}"
+  name        = "${substr(var.project, 0, 24)}-db-credentials-${terraform.workspace}"
   description = "RDS database credentials for ${var.project}"
 }
 

@@ -1,5 +1,9 @@
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.project}-bucket"
+  bucket = "${substr(var.project, 0, 40)}-bucket-${random_id.suffix.hex}"
 
   tags = {
     Name = "${var.project}-bucket"

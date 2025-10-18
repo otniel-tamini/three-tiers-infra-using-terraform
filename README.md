@@ -1,3 +1,5 @@
+# Important Note
+To avoid naming conflicts (especially with AWS Secrets Manager), all resource names include a random suffix. If you encounter a name conflict error, destroy the previous resources using `terraform destroy` before re-applying. Never manually delete resources in AWS without also cleaning your Terraform state.
 # Three-Tier Infrastructure on AWS with Terraform
 
 ## Overview

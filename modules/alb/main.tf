@@ -23,8 +23,12 @@ resource "aws_security_group" "alb_sg" {
   }
 }
 
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 resource "aws_lb" "app_alb" {
-  name               = "${var.project}-alb"
+  name               = "${substr(var.project, 0, 16)}-alb-${random_id.suffix.hex}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
@@ -36,7 +40,7 @@ resource "aws_lb" "app_alb" {
 }
 
 resource "aws_lb_target_group" "app_tg" {
-  name     = "${var.project}-tg"
+  name     = "${substr(var.project, 0, 16)}-tg-${random_id.suffix.hex}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
